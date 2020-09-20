@@ -90,23 +90,25 @@ if(currentEnemy === "dummy"){
     enemyHealth = 100
                 
     while (playerHealth > 0) {
-            if(enemyHealth <= 0) {
+        if(enemyHealth <= 0) {
                 return message.channel.send(`**${message.author.username}** wins!`);
             } else {
-                        
+                await wait(2000)
                 playerAttack();
-                        
-                enemyAttack(30);
-                }
+                if(enemyHealth <= 0) {
+                    return message.channel.send(`**${message.author.username} wins!**`)
+                    }
+                    await wait(2000)
+                    enemyAttack(30);
 
-
-                }
-
-    message.channel.send(`**${currentEnemy}** wins!`)
-
-                
 
             }
+
+
+        }
+
+                message.channel.send(`**${currentEnemy}** wins!`)
+}
 ```
 
 ## Before you make a pull request with changes.
