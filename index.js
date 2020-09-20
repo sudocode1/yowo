@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const randomer = require("randomer.js");
 const sleep = require('system-sleep');
+const wait = require('util').promisify(setTimeout);
 
 
 bot.on("ready", async () => {
@@ -18,6 +19,7 @@ bot.on("message", async message => {
     let prefix = "y!";
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
+    let args = messageArray.slice(1);
    
 
     switch(cmd) {
@@ -55,9 +57,9 @@ bot.on("message", async message => {
                     if(enemyHealth <= 0) {
                         return message.channel.send(`**${message.author.username}** wins!`);
                     } else {
-                        
+                        await wait(2000)
                         playerAttack();
-                        
+                        await wait(2000)
                         enemyAttack(30);
 
                         // setInterval(function () {}, 1000)
@@ -80,4 +82,4 @@ bot.on("message", async message => {
 
 });
 
-bot.login("token");
+bot.login("NzU1NzM5MTAwOTQxOTEwMTA4.X2Hq4g.kntylPZD74ciXucSjdm-LOkmDUg");
