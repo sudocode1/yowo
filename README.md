@@ -98,8 +98,8 @@ if(currentEnemy === "dummy"){
                 if(enemyHealth <= 0) {
                     return message.channel.send(`**${message.author.username} wins!**`)
                     }
-                    await wait(2000)
-                    enemyAttack(30);
+                await wait(2000)
+                enemyAttack(30);
 
 
             }
