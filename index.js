@@ -23,10 +23,10 @@ bot.on("message", async message => {
 
     switch(cmd) {
         case `${prefix}fight`:
-            var enemyTypes = ["dummy"];
+            var enemyTypes = ["dummy", "traveller"];
             var currentEnemy = randomer.array(enemyTypes);
             var enemyHealth, enemyCurrentHealth;
-            
+        
             var playerHealth = 120;
             var playerCurrentHealth;
 
@@ -52,6 +52,12 @@ bot.on("message", async message => {
             async function fight(eHealth, eMaxDamage) {
                 enemyHealth = eHealth;
 
+                var playerChanceHealth = playerHealth + Math.floor(Math.random() * 100);
+                playerHealth = playerChanceHealth;
+
+                message.channel.send(`You have encountered **${currentEnemy}**!\nPlayer Health: ${playerHealth}\nEnemy Health: ${enemyHealth}`);
+
+
                 while (playerHealth > 0) {
                     if(enemyHealth <= 0) {
                         return message.channel.send(`**${message.author.username}** wins!`);
@@ -69,8 +75,14 @@ bot.on("message", async message => {
                 message.channel.send(`**${currentEnemy}** wins!`)
             }
 
-            if(currentEnemy === "dummy"){
-                fight(100, 30);
+            switch(currentEnemy) {
+                case "dummy":
+                    fight(100, 30);
+                break;
+                
+                case "traveller":
+                    fight(150, 70)
+                break;
             }
 
         break;
