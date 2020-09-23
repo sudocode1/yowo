@@ -117,4 +117,5 @@ async function fight(eHealth, eMaxDamage) {
 ```js
 if(currentEnemy === "dummy"){
     fight(100, 30);
-}```
+}
+```
