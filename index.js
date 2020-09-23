@@ -86,6 +86,32 @@ bot.on("message", async message => {
             }
 
         break;
+
+        case `${prefix}math`:
+
+            if(args[0] === `add` || args[0] === `plus` || args[0] === `+`) {
+
+                message.channel.send(parseFloat(args[1]) + parseFloat(args[2]));
+
+            } else if(args[0] === `subtract` || args[0] === `minus` || args[0] === `-`) {
+
+                message.channel.send(parseFloat(args[1]) - parseFloat(args[2]));
+
+            } else if(args[0] === `multiply` || args[0] === `times` || args[0] === `x` || args[0] === `*`) {
+
+                message.channel.send(parseFloat(args[1]) * parseFloat(args[2]));
+
+            } else if(args[0] === `divide` || args[0] === `ed_sheeran_album` || args[0] === `/` || args[0] === `÷`) {
+
+                message.channel.send(parseFloat(args[1]) / parseFloat(args[2]));
+
+            } else {
+
+                message.channel.send("unknown operation");
+
+            } 
+            
+        break;
     }
 
 });
