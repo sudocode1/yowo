@@ -81,7 +81,7 @@ bot.on("message", async message => {
                 break;
                 
                 case "traveller":
-                    fight(150, 70)
+                    fight(150, 70);
                 break;
             }
 
