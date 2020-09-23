@@ -23,7 +23,7 @@ bot.on("message", async message => {
 
     switch(cmd) {
         case `${prefix}fight`:
-            var enemyTypes = ["dummy", "traveller"];
+            var enemyTypes = ["dummy", "traveller", "zombie", "skeleton", "king zombie", "sans"];
             var currentEnemy = randomer.array(enemyTypes);
             var enemyHealth, enemyCurrentHealth;
         
@@ -83,12 +83,28 @@ bot.on("message", async message => {
                 case "traveller":
                     fight(150, 70);
                 break;
+
+                case "zombie":
+                    fight(70, 50);
+                break;
+
+                case "skeleton":
+                    fight(80, 30);
+                break;
+
+                case "king zombie":
+                    fight(35, 200);
+                break;
+
+                case "sans":
+                    fight(1000000, 50000);
+                break;
             }
 
         break;
 
         case `${prefix}math`:
-
+            
             if(args[0] === `add` || args[0] === `plus` || args[0] === `+`) {
 
                 message.channel.send(parseFloat(args[1]) + parseFloat(args[2]));
@@ -112,6 +128,16 @@ bot.on("message", async message => {
             } 
             
         break;
+
+        case `${prefix}help`:
+            var helpEmbed = new Discord.MessageEmbed()
+            .setTitle(`yowo Command list`)
+            .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`math\``)
+            message.channel.send(helpEmbed);
+        
+        break;
+
+
     }
 
 });
