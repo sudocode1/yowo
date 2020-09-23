@@ -20,7 +20,7 @@ playerHealth = playerChanceHealth;
 playerCurrentHealth are set to no value.
 
 ```js
-var enemyTypes = ["dummy"];
+var enemyTypes = ["dummy, traveller"];
 var currentEnemy = randomer.array(enemyTypes);
 var enemyHealth, enemyCurrentHealth;
             
