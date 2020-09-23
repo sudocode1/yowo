@@ -1,5 +1,5 @@
 # yowo
-The Discord Fighting bot <br>
+The Discord Fighting bot (and also math) <br>
 
 ## Some base information
 - Made in discord.js 12.3.1
