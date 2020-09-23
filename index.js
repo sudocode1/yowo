@@ -49,31 +49,28 @@ bot.on("message", async message => {
                 message.channel.send(`**${currentEnemy}** attacks **${message.author.username}**!\n${message.author.username}\'s health is now ${playerHealth}`);
             }
 
-            if(currentEnemy === "dummy"){
-                enemyHealth = 100
-                
+            async function fight(eHealth, eMaxDamage) {
+                enemyHealth = eHealth;
+
                 while (playerHealth > 0) {
                     if(enemyHealth <= 0) {
                         return message.channel.send(`**${message.author.username}** wins!`);
                     } else {
-                        await wait(2000)
+                        await wait(2000);
                         playerAttack();
                         if(enemyHealth <= 0) {
-                            return message.channel.send(`**${message.author.username} wins!**`)
+                            return message.channel.send(`**${message.author.username} wins!**`);
                         }
-                        await wait(2000)
-                        enemyAttack(30);
-
-
+                        await wait(2000);
+                        enemyAttack(eMaxDamage);
                     }
-
-
                 }
 
                 message.channel.send(`**${currentEnemy}** wins!`)
+            }
 
-                
-
+            if(currentEnemy === "dummy"){
+                fight(100, 30);
             }
 
         break;
