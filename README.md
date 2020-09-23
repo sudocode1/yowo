@@ -2,7 +2,7 @@
 The Discord Fighting bot <br>
 
 ## Some base information
-- Made in discord.js 11.6.4
+- Made in discord.js 12.3.1
 - Random arrays made with randomer.js 1.0.1
 
 ## How it works
