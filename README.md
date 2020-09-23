@@ -83,33 +83,35 @@ If the enemy health is less than or equal to 0, the loop will end and send the m
 
 Otherwise, `playerAttack()` and `enemyAttack(d)` is run.
 In this context, the maximum amount of damage the dummy can do is 30, which is why `enemyAttack(d)` is `enemyAttack(30)`. <br>
-There are a few issues with this system which are in the issues tab on the github page, help would be much appreciated. <br>
+
+This is done using an async function, so now you only have to put fight(enemymaxhealth, enemymaxdamage)<br>
+
+```js
+async function fight(eHealth, eMaxDamage) {
+        enemyHealth = eHealth;
+
+        while (playerHealth > 0) {
+        if(enemyHealth <= 0) {
+            return message.channel.send(`**${message.author.username}** wins!`);
+        } else {
+            await wait(2000);
+            playerAttack();
+            if(enemyHealth <= 0) {
+            return message.channel.send(`**${message.author.username} wins!**`);
+                }
+            await wait(2000);
+            enemyAttack(eMaxDamage);
+                    }
+                }
+
+            message.channel.send(`**${currentEnemy}** wins!`)
+            }
+```
 
 ```js
 if(currentEnemy === "dummy"){
-    enemyHealth = 100
-                
-    while (playerHealth > 0) {
-        if(enemyHealth <= 0) {
-                return message.channel.send(`**${message.author.username}** wins!`);
-            } else {
-                await wait(2000)
-                playerAttack();
-                if(enemyHealth <= 0) {
-                    return message.channel.send(`**${message.author.username} wins!**`)
-                    }
-                await wait(2000)
-                enemyAttack(30);
-
-
-            }
-
-
-        }
-
-                message.channel.send(`**${currentEnemy}** wins!`)
-}
-```
+    fight(100, 30);
+}```
 
 ## Before you make a pull request with changes.
 The bot is made in discord.js 11.6.4, because I'm lazy and can't be bothered learning v12. <br>
