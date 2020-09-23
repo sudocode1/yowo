@@ -11,7 +11,12 @@ enemyTypes is a list of enemy types (obviously). <br>
 currentEnemy is set using Math.random via randomer.js, it will pick a random enemy type from the list. <br>
 enemyHealth and enemyCurrentHealth are both set with no value. <br>
 
-playerHealth is set to 120 as there is __currently__ no system for deciding player health. <br>
+playerHealth is set to 120 and is then added by a random number of 0 to 100.<br>
+
+```js
+var playerChanceHealth = playerHealth + Math.floor(Math.random() * 100);
+playerHealth = playerChanceHealth;
+```
 playerCurrentHealth are set to no value.
 
 ```js
