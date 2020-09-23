@@ -1,6 +1,5 @@
 # yowo
 The Discord Fighting bot <br>
-**If you are going to make a pull request, please scroll to the bottom.**
 
 ## Some base information
 - Made in discord.js 11.6.4
@@ -119,10 +118,3 @@ async function fight(eHealth, eMaxDamage) {
 if(currentEnemy === "dummy"){
     fight(100, 30);
 }```
-
-## Before you make a pull request with changes.
-The bot is made in discord.js 11.6.4, because I'm lazy and can't be bothered learning v12. <br>
-Make sure all pull request changes are made in 11.6.4.
-
-__However,__
-If you can somehow make an actual working version of the code in v12, feel free to make a pull request with it.
