@@ -32,9 +32,16 @@ playerAttack()
 
 enemyCurrentHealth is set to enemyHealth which at first is set after a enemy is picked.
 
+
 ```js
 if(currentEnemy === "dummy"){
-                enemyHealth = 100 ....
+    fight(100, 30);
+}
+```
+
+```js
+async function fight(eHealth, eMaxDamage) {
+        enemyHealth = eHealth;
 ```
 
 Otherwise, enemyCurrentHealth is set to enemyHealth after the last attack. <br>
