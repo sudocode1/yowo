@@ -231,12 +231,21 @@ bot.on("message", async message => {
             
         break;
 
-        // case `${prefix}leaderboard`:
-        //     var data = require("./fightdata.json");
-        //     Object.entries(data).sort((a, b) => {
+        case `${prefix}leaderboard`:
+            var data = require("./fightdata.json");
+            const str = Object
+            .entries(data) // get an array of key-value pairs of the object: [[id, data]]
+            .sort(([, a], [, b]) => b.killed - a.killed) // sort the array by the `.killed` property of the second element of the key-value array (data)
+            .slice(0, 15) // get the first 15 elements of the sorted array
+            .reduce((s, [id, data]) => `${s}<@${id}>: ${data.killed} killed\n`, ''); // reduce the array into a string
 
-        //     });
-        // break;
+            const boardembed = new Discord.MessageEmbed()
+            .addField("Top 15 Highest Levels", str)
+            .setColor("#5cb3ff")
+
+            message.channel.send(boardembed);
+
+        break;
 
     }
 
