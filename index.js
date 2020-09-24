@@ -2,6 +2,7 @@ const Discord = require("discord.js");
 const bot = new Discord.Client();
 const randomer = require("randomer.js");
 const wait = require('util').promisify(setTimeout);
+const fs = require("fs");
 
 
 bot.on("ready", async () => {
@@ -23,6 +24,19 @@ bot.on("message", async message => {
 
     switch(cmd) {
         case `${prefix}fight`:
+
+            var data = JSON.parse(fs.readFileSync(`./fightdata.json`, `utf-8`));
+            var userid = message.author.id;
+
+            if(!data[userid]) {
+
+                data[userid] = {
+                    killed: 0
+                }
+
+                fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
+            }
+
             var enemyTypes = ["dummy", "traveller", "zombie", "skeleton", "king zombie", "sans"];
             var currentEnemy = randomer.array(enemyTypes);
             var enemyHealth, enemyCurrentHealth;
@@ -60,12 +74,38 @@ bot.on("message", async message => {
 
                 while (playerHealth > 0) {
                     if(enemyHealth <= 0) {
-                        return message.channel.send(`**${message.author.username}** wins!`);
+
+                        message.channel.send(`**${message.author.username}** wins!`);
+
+                        var currentKills = data[userid].killed;
+
+                        data[userid] = {
+                            killed: currentKills + 1
+                        }
+        
+                        fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
+
+                        message.channel.send(`You now have **${data[userid].killed} kills**!`)
+
+                        return;
+
                     } else {
                         await wait(2000);
                         playerAttack();
                         if(enemyHealth <= 0) {
-                            return message.channel.send(`**${message.author.username} wins!**`);
+                            message.channel.send(`**${message.author.username} wins!**`);
+
+                            var currentKills = data[userid].killed;
+
+                            data[userid] = {
+                                killed: currentKills + 1
+                            }
+            
+                            fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
+    
+                            message.channel.send(`You now have **${data[userid].killed} kills**!`)
+
+                            return;
                         }
                         await wait(2000);
                         enemyAttack(eMaxDamage);
