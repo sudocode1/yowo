@@ -4,6 +4,8 @@ const randomer = require("randomer.js");
 const wait = require('util').promisify(setTimeout);
 const fs = require("fs");
 
+const secret = require("./secret.json");
+
 
 bot.on("ready", async () => {
 
@@ -37,7 +39,7 @@ bot.on("message", async message => {
                 fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
             }
 
-            var enemyTypes = ["dummy", "traveller", "zombie", "skeleton", "king zombie", "sans"];
+            var enemyTypes = ["dummy", "traveller", "zombie", "skeleton", "king zombie", "sans", "queen skeleton", "spider", "king spider"];
             var currentEnemy = randomer.array(enemyTypes);
             var enemyHealth, enemyCurrentHealth;
         
@@ -120,6 +122,9 @@ bot.on("message", async message => {
             }
 
             switch(currentEnemy) {
+
+                // health, maxdamage
+
                 case "dummy":
                     fight(100, 30);
                 break;
@@ -143,6 +148,20 @@ bot.on("message", async message => {
                 case "sans":
                     fight(1000000, 50000);
                 break;
+
+                case "queen skeleton":
+                    fight(45, 170);
+                break;
+
+                case "spider":
+                    fight(70, 25);
+                break;
+
+                case "king spider":
+                    fight(700, 250);
+                break;
+
+                
             }
 
         break;
@@ -188,9 +207,33 @@ bot.on("message", async message => {
             message.channel.send(`Your kills: ${data[userid].killed}\nYour health: ${data[userid].killed + 120}\nYour maximum damage: ${data[userid].killed + 50}`);
         break;
 
+        case `${prefix}eval`:
+            if(message.author.id !== secret.ownerid) return message.channel.send("stinky");
+
+            function clean(text) {
+                if (typeof(text) === "string")
+                    return text.replace(/`/g, "`" + String.fromCharCode(8203)).replace(/@/g, "@" + String.fromCharCode(8203));
+                else
+                    return text;
+            }
+
+            try {
+                const code = args.join(" ");
+                let evaled = eval(code);
+
+                if (!typeof evaled === "string")
+                    evaled = require("util").inspect(evaled);
+
+                message.channel.send(clean(evaled), {code:"xl"});
+            } catch (err) {
+                  message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
+                }
+            
+        break;
+
 
     }
 
 });
 
-bot.login("token");
+bot.login(secret.token);
