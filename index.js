@@ -195,7 +195,7 @@ bot.on("message", async message => {
         case `${prefix}help`:
             var helpEmbed = new Discord.MessageEmbed()
             .setTitle(`yowo Command list`)
-            .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`stats\`\n\`math\``)
+            .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`stats\`\n\`leaderboard\`\n\`math\``)
             message.channel.send(helpEmbed);
         
         break;
