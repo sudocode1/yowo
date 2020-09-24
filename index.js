@@ -42,6 +42,9 @@ bot.on("message", async message => {
             var enemyHealth, enemyCurrentHealth;
         
             var playerHealth = 120;
+
+
+
             var playerCurrentHealth;
 
 
@@ -50,7 +53,7 @@ bot.on("message", async message => {
             
                 
                 enemyCurrentHealth = enemyHealth;
-                enemyHealth = enemyCurrentHealth - Math.floor(Math.random() * 50);
+                enemyHealth = enemyCurrentHealth - Math.floor(Math.random() * 50 + data[userid].killed);
                 
                 message.channel.send(`**${message.author.username}** attacks **${currentEnemy}**!\n${currentEnemy}\'s health is now ${enemyHealth}`);
             }
@@ -66,10 +69,11 @@ bot.on("message", async message => {
             async function fight(eHealth, eMaxDamage) {
                 enemyHealth = eHealth;
 
-                var playerChanceHealth = playerHealth + Math.floor(Math.random() * 100);
+                var playerChanceHealth = 120 + data[userid].killed;
+
                 playerHealth = playerChanceHealth;
 
-                message.channel.send(`You have encountered **${currentEnemy}**!\nPlayer Health: ${playerHealth}\nEnemy Health: ${enemyHealth}`);
+                message.channel.send(`You have encountered **${currentEnemy}**!\nPlayer Health: ${playerHealth}\nPlayer Max Damage: ${50 + data[userid].killed}\nEnemy Health: ${enemyHealth}`);
 
 
                 while (playerHealth > 0) {
@@ -172,9 +176,16 @@ bot.on("message", async message => {
         case `${prefix}help`:
             var helpEmbed = new Discord.MessageEmbed()
             .setTitle(`yowo Command list`)
-            .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`math\``)
+            .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`stats\`\n\`math\``)
             message.channel.send(helpEmbed);
         
+        break;
+
+        case `${prefix}stats`:
+            var data = JSON.parse(fs.readFileSync(`./fightdata.json`, `utf-8`));
+            var userid = message.author.id;
+
+            message.channel.send(`Your kills: ${data[userid].killed}\nYour health: ${data[userid].killed + 120}\nYour maximum damage: ${data[userid].killed + 50}`);
         break;
 
 
