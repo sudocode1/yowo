@@ -231,6 +231,12 @@ bot.on("message", async message => {
             
         break;
 
+        // case `${prefix}leaderboard`:
+        //     var data = require("./fightdata.json");
+        //     Object.entries(data).sort((a, b) => {
+
+        //     });
+        // break;
 
     }
 
