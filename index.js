@@ -22,7 +22,7 @@ bot.on("message", async message => {
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0];
     let args = messageArray.slice(1);
-   
+
 
     switch(cmd) {
         case `${prefix}fight`:
@@ -42,7 +42,7 @@ bot.on("message", async message => {
             var enemyTypes = ["dummy", "traveller", "zombie", "skeleton", "king zombie", "sans", "queen skeleton", "spider", "king spider"];
             var currentEnemy = randomer.array(enemyTypes);
             var enemyHealth, enemyCurrentHealth;
-        
+
             var playerHealth = 120;
 
 
@@ -52,19 +52,19 @@ bot.on("message", async message => {
 
 
             function playerAttack() {
-            
-                
+
+
                 enemyCurrentHealth = enemyHealth;
                 enemyHealth = enemyCurrentHealth - Math.floor(Math.random() * 50 + data[userid].killed);
-                
+
                 message.channel.send(`**${message.author.username}** attacks **${currentEnemy}**!\n${currentEnemy}\'s health is now ${enemyHealth}`);
             }
 
             function enemyAttack(d) {
-                
+
                 playerCurrentHealth = playerHealth;
                 playerHealth = playerCurrentHealth - Math.floor(Math.random() * d);
-                
+
                 message.channel.send(`**${currentEnemy}** attacks **${message.author.username}**!\n${message.author.username}\'s health is now ${playerHealth}`);
             }
 
@@ -75,7 +75,7 @@ bot.on("message", async message => {
 
                 playerHealth = playerChanceHealth;
 
-                message.channel.send(`You have encountered **${currentEnemy}**!\nPlayer Health: ${playerHealth}\nPlayer Max Damage: ${50 + data[userid].killed}\nEnemy Health: ${enemyHealth}`);
+                message.channel.send(`You have encountered **${currentEnemy}**!\nPlayer Health: ${playerHealth}\nPlayer Max Damage: ${50 + data[userid].killed}\nEnemy Health: ${enemyHealth}\nEnemy Max Damage: ${eMaxDamage}`);
 
 
                 while (playerHealth > 0) {
@@ -88,7 +88,7 @@ bot.on("message", async message => {
                         data[userid] = {
                             killed: currentKills + 1
                         }
-        
+
                         fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
 
                         message.channel.send(`You now have **${data[userid].killed} kills**!`)
@@ -106,9 +106,9 @@ bot.on("message", async message => {
                             data[userid] = {
                                 killed: currentKills + 1
                             }
-            
+
                             fs.writeFileSync(`./fightdata.json`, JSON.stringify(data));
-    
+
                             message.channel.send(`You now have **${data[userid].killed} kills**!`)
 
                             return;
@@ -128,7 +128,7 @@ bot.on("message", async message => {
                 case "dummy":
                     fight(100, 30);
                 break;
-                
+
                 case "traveller":
                     fight(150, 70);
                 break;
@@ -161,13 +161,13 @@ bot.on("message", async message => {
                     fight(700, 250);
                 break;
 
-                
+
             }
 
         break;
 
         case `${prefix}math`:
-            
+
             if(args[0] === `add` || args[0] === `plus` || args[0] === `+`) {
 
                 message.channel.send(parseFloat(args[1]) + parseFloat(args[2]));
@@ -184,12 +184,16 @@ bot.on("message", async message => {
 
                 message.channel.send(parseFloat(args[1]) / parseFloat(args[2]));
 
+            } else if(args[0] === `exponential`|| args[0] === `^`)
+
+                message.channel.send(Math.pow(parseFloat(args[1]),parseFloat(args[2])));
+
             } else {
 
                 message.channel.send("unknown operation");
 
-            } 
-            
+            }
+
         break;
 
         case `${prefix}help`:
@@ -197,7 +201,7 @@ bot.on("message", async message => {
             .setTitle(`yowo Command list`)
             .addField(`prefix is ${prefix}`,  `\`help\`\n\`fight\`\n\`stats\`\n\`leaderboard\`\n\`math\``)
             message.channel.send(helpEmbed);
-        
+
         break;
 
         case `${prefix}stats`:
@@ -228,7 +232,7 @@ bot.on("message", async message => {
             } catch (err) {
                   message.channel.send(`\`ERROR\` \`\`\`xl\n${clean(err)}\n\`\`\``);
                 }
-            
+
         break;
 
         case `${prefix}leaderboard`:
