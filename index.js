@@ -184,7 +184,7 @@ bot.on("message", async message => {
 
                 message.channel.send(parseFloat(args[1]) / parseFloat(args[2]));
 
-            } else if(args[0] === `exponential`|| args[0] === `^`)
+            } else if(args[0] === `exponential` || args[0] === `^`)
 
                 message.channel.send(Math.pow(parseFloat(args[1]),parseFloat(args[2])));
 
